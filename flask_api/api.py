@@ -45,27 +45,29 @@ def requires_auth(f):
 
 @app.route('/data', methods=['GET'])
 @requires_auth
-def get_data():
-    """
-    Retrieve the data from the in-memory database.
+class MyEndpoint(Resource):
+    def get_data():
+        """
+        Retrieve the data from the in-memory database.
 
-    Returns:
-        flask.Response: The JSON response containing the data.
-    """
-    return jsonify(data)
+        Returns:
+            flask.Response: The JSON response containing the data.
+        """
+        return jsonify(data)
 
 @app.route('/data', methods=['POST'])
 @requires_auth
-def update_data():
-    """
-    Update the data in the in-memory database.
+class MyEndpoint(Resource):
+    def update_data():
+        """
+        Update the data in the in-memory database.
 
-    Returns:
-        flask.Response: The JSON response containing the updated data.
-    """
-    new_data = request.json
-    data.update(new_data)
-    return jsonify(data), 200
+        Returns:
+            flask.Response: The JSON response containing the updated data.
+        """
+        new_data = request.json
+        data.update(new_data)
+        return jsonify(data), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
