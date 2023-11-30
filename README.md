@@ -5,3 +5,8 @@ To run unit tests, issue the following command:
 ```bash
 python3 -m unittest discover
 ```
+
+To rebuild the `requirements.txt` run:
+```bash
+pip freeze > requirements.txt
+```
