@@ -7,7 +7,9 @@
     "extensions": [
         "ms-python.python",
         "ms-python.vscode-pylance",
-        "ms-azuretools.vscode-docker"
+        "ms-azuretools.vscode-docker",
+        "github.github-vscode-theme",
+        "github.copilot"
     ],
     "forwardPorts": [5000],
     "postCreateCommand": "pip install -r requirements.txt",
