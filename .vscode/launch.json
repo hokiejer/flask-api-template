@@ -1,0 +1,30 @@
+/*
+The `launch.json` file in Visual Studio Code is used to configure debug settings for your project. It specifies the details of how your application should be run or debugged.
+
+In the provided `launch.json` excerpt, there is a configuration for debugging Python files. Here's what each field means:
+
+- `"name": "Python: Current File"`: This is the name of the configuration that will appear in the dropdown menu in the Debug view.
+- `"type": "python"`: This specifies the type of debugger to use. In this case, it's the Python debugger.
+- `"request": "launch"`: This tells VS Code to start a new Python process when you start debugging.
+- `"program": "${file}"`: This specifies the entry point of your program. `${file}` is a variable in VS Code that refers to the currently active file.
+- `"console": "integratedTerminal"`: This tells VS Code to run the program in the integrated terminal.
+- `"justMyCode": true`: This tells the debugger to only step through your code, and not go into library or system code.
+
+You can add multiple configurations to the `launch.json` file to handle different debugging scenarios.
+*/
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}
