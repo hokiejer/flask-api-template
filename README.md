@@ -2,20 +2,10 @@
 
 This is a template for a flask API
 
-To run unit tests, issue the following command:
+Here's a quick overview of some helpful commands for managing this repository:
 
-```bash
-python3 -m unittest discover
-```
-
-To rebuild the `requirements.txt` run:
-
-```bash
-pip freeze > requirements.txt
-```
-
-To rebuild the Sphinx documentation, run:
-
-```bash
-make html
-```
+| Task | Command |
+|---|---|
+| Run unit tests | `python3 -m unittest discover` |
+| Rebuild `requirements.txt` | `pip freeze > requirements.txt` |
+| Rebuild Sphinx documentation | `make html` |
