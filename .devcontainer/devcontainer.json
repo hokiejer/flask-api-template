@@ -1,17 +1,23 @@
 {
     "name": "Python 3 Flask API",
     "image": "mcr.microsoft.com/vscode/devcontainers/python:3.8",
-    "settings": { 
-        "terminal.integrated.shell.linux": "/bin/bash"
-    },
-    "extensions": [
-        "ms-python.python",
-        "ms-python.vscode-pylance",
-        "ms-azuretools.vscode-docker",
-        "github.github-vscode-theme",
-        "github.copilot"
-    ],
-    "forwardPorts": [5000],
-    "postCreateCommand": "pip install -r requirements.txt",
-    "remoteUser": "vscode"
-}
+    "waitFor": "onCreateCommand",
+    "updateContentCommand": "python3 -m pip install -r requirements.txt",
+    "postCreateCommand": "",
+    "customizations": {
+      "codespaces": {
+        "openFiles": []
+      },
+      "vscode": {
+        "extensions": [
+          "ms-toolsai.jupyter",
+          "ms-python.python",
+          "ms-python.vscode-pylance",
+          "ms-azuretools.vscode-docker",
+          "github.github-vscode-theme",
+          "github.copilot"
+      ],
+      "forwardPorts": [5000],
+      }
+    }
+  }
