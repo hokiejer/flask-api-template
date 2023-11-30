@@ -28,6 +28,47 @@ class TestAPI(TestCase):
         response = self.client.get('/data')
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.data, b'Could not verify your access level for that URL.\nYou have to login with proper credentials')
+
+    def test_update_data_unauthorized(self):
+        response = self.client.post('/data', json={"message": "Hello, GitHub Copilot"})
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.data, b'Could not verify your access level for that URL.\nYou have to login with proper credentials')
+
+    def test_get_data_wrong_credentials(self):
+        headers = self.get_basic_auth_header('admin', 'wrong')
+        response = self.client.get('/data', headers=headers)
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.data, b'Could not verify your access level for that URL.\nYou have to login with proper credentials')
+
+    def test_update_data_wrong_credentials(self):
+        headers = self.get_basic_auth_header('admin', 'wrong')
+        response = self.client.post('/data', json={"message": "Hello, GitHub Copilot"}, headers=headers)
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.data, b'Could not verify your access level for that URL.\nYou have to login with proper credentials')
+
+    def test_get_data_wrong_username(self):
+        headers = self.get_basic_auth_header('wrong', 'secret')
+        response = self.client.get('/data', headers=headers)
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.data, b'Could not verify your access level for that URL.\nYou have to login with proper credentials')
+
+    def test_update_data_wrong_username(self):
+        headers = self.get_basic_auth_header('wrong', 'secret')
+        response = self.client.post('/data', json={"message": "Hello, GitHub Copilot"}, headers=headers)
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.data, b'Could not verify your access level for that URL.\nYou have to login with proper credentials')
+
+    def test_get_data_wrong_password(self):
+        headers = self.get_basic_auth_header('admin', 'wrong')
+        response = self.client.get('/data', headers=headers)
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.data, b'Could not verify your access level for that URL.\nYou have to login with proper credentials')
+
+    def test_update_data_wrong_password(self):
+        headers = self.get_basic_auth_header('admin', 'wrong')
+        response = self.client.post('/data', json={"message": "Hello, GitHub Copilot"}, headers=headers)
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.data, b'Could not verify your access level for that URL.\nYou have to login with proper credentials')
         
 if __name__ == '__main__':
     unittest.main()
