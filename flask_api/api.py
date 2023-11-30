@@ -43,20 +43,25 @@ def requires_auth(f):
         return f(*args, **kwargs)
     return decorated
 
-@app.route('/data', methods=['GET'])
-class MyEndpoint(Resource):
-    def get_data():
+@app.route('/data')
+class DataResource(Resource):
+    method_decorators = [requires_auth]
+
+    @api.doc(responses={200: 'Success', 401: 'Unauthorized'})
+    @api.marshal_with(data_model)
+    def get(self):
         """
         Retrieve the data from the in-memory database.
 
         Returns:
             flask.Response: The JSON response containing the data.
         """
-        return jsonify(data)
+        return data
 
-@app.route('/data', methods=['POST'])
-class MyEndpoint(Resource):
-    def update_data():
+    @api.doc(responses={200: 'Success', 401: 'Unauthorized'})
+    @api.expect(data_model)
+    @api.marshal_with(data_model)
+    def post(self):
         """
         Update the data in the in-memory database.
 
@@ -65,7 +70,7 @@ class MyEndpoint(Resource):
         """
         new_data = request.json
         data.update(new_data)
-        return jsonify(data), 200
+        return data, 200
 
 if __name__ == '__main__':
     app.run(debug=True)
