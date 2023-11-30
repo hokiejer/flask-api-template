@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, Response
-from flask_restx import Api, Resource
+from flask_restx import Api, Resource, fields
 from functools import wraps
 
 app = Flask(__name__)
@@ -48,7 +48,7 @@ data_model = api.model('DataModel', {
     'message': fields.String(description='A message.')
 })
 
-@app.route('/data')
+@api.route('/data')
 class DataResource(Resource):
     method_decorators = [requires_auth]
 
@@ -61,6 +61,7 @@ class DataResource(Resource):
         Returns:
             flask.Response: The JSON response containing the data.
         """
+        print(data)
         return data
 
     @api.doc(responses={200: 'Success', 401: 'Unauthorized'})
@@ -75,6 +76,7 @@ class DataResource(Resource):
         """
         new_data = request.json
         data.update(new_data)
+        print(data)
         return data, 200
 
 if __name__ == '__main__':
