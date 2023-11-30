@@ -44,7 +44,6 @@ def requires_auth(f):
     return decorated
 
 @app.route('/data', methods=['GET'])
-@requires_auth
 class MyEndpoint(Resource):
     def get_data():
         """
@@ -56,7 +55,6 @@ class MyEndpoint(Resource):
         return jsonify(data)
 
 @app.route('/data', methods=['POST'])
-@requires_auth
 class MyEndpoint(Resource):
     def update_data():
         """
