@@ -6,12 +6,29 @@ app = Flask(__name__)
 # Simple in-memory database for demonstration
 data = {"message": "Hello, World!"}
 
-# Authentication function
 def check_auth(username, password):
+    """
+    Check if the provided username and password are valid.
+
+    Args:
+        username (str): The username to be checked.
+        password (str): The password to be checked.
+
+    Returns:
+        bool: True if the username and password are valid, False otherwise.
+    """
     return username == 'admin' and password == 'secret'
 
-# Decorator for routes that require authentication
 def requires_auth(f):
+    """
+    Decorator for routes that require authentication.
+
+    Args:
+        f (function): The function to be decorated.
+
+    Returns:
+        function: The decorated function.
+    """
     @wraps(f)
     def decorated(*args, **kwargs):
         auth = request.authorization
@@ -27,11 +44,23 @@ def requires_auth(f):
 @app.route('/data', methods=['GET'])
 @requires_auth
 def get_data():
+    """
+    Retrieve the data from the in-memory database.
+
+    Returns:
+        flask.Response: The JSON response containing the data.
+    """
     return jsonify(data)
 
 @app.route('/data', methods=['POST'])
 @requires_auth
 def update_data():
+    """
+    Update the data in the in-memory database.
+
+    Returns:
+        flask.Response: The JSON response containing the updated data.
+    """
     new_data = request.json
     data.update(new_data)
     return jsonify(data), 200
