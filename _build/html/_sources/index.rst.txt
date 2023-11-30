@@ -18,3 +18,5 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+.. seealso:: For interactive API documentation, visit our `Swagger UI <http://localhost:5000/swagger/>`_.
