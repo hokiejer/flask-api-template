@@ -15,7 +15,10 @@
           "ms-python.vscode-pylance",
           "ms-azuretools.vscode-docker",
           "github.github-vscode-theme",
-          "github.copilot"
+          "github.copilot",
+          "eamodio.gitlens",
+          "github.copilot",
+          "DavidAnson.vscode-markdownlint",
       ],
       "forwardPorts": [5000],
       }
