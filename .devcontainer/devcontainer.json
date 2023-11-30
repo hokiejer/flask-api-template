@@ -18,9 +18,9 @@
           "github.copilot",
           "eamodio.gitlens",
           "github.copilot",
-          "DavidAnson.vscode-markdownlint",
+          "DavidAnson.vscode-markdownlint"
       ],
-      "forwardPorts": [5000],
+      "forwardPorts": [5000]
       }
     }
   }
