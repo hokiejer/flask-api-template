@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request, Response
+from flask_restx import Api, Resource
 from functools import wraps
 
 app = Flask(__name__)
+api = Api(app, doc='/swagger/') # Sets the URL for the Swagger documentation
 
 # Simple in-memory database for demonstration
 data = {"message": "Hello, World!"}
