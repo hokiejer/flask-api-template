@@ -43,6 +43,11 @@ def requires_auth(f):
         return f(*args, **kwargs)
     return decorated
 
+# Define a model for your data structure
+data_model = api.model('DataModel', {
+    'message': fields.String(description='A message.')
+})
+
 @app.route('/data')
 class DataResource(Resource):
     method_decorators = [requires_auth]
