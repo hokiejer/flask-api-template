@@ -1,10 +1,9 @@
 import unittest
 from flask_testing import TestCase
-from flask_api.api import api
+from flask_api.api import app
 
 class TestAPI(TestCase):
     def create_app(self):
-        app = api.app
         app.config['TESTING'] = True
         return app
 
