@@ -24,5 +24,10 @@ class TestAPI(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json, {"message": "Hello, GitHub Copilot"})
 
+    def test_get_data_unauthorized(self):
+        response = self.client.get('/data')
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.data, b'Could not verify your access level for that URL.\nYou have to login with proper credentials')
+        
 if __name__ == '__main__':
     unittest.main()
