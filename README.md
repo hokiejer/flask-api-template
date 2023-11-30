@@ -10,3 +10,8 @@ To rebuild the `requirements.txt` run:
 ```bash
 pip freeze > requirements.txt
 ```
+
+To rebuild the Sphinx documentation, run:
+```bash
+make html
+```
