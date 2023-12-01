@@ -38,7 +38,7 @@ class DataResource(Resource):
         """
         return Data.global_dictionary
     
-    @api.doc(responses={200: 'Success', 401: 'Unauthorized'})
+    @api.doc(params={'x-api-key': 'API Key'}, responses={200: 'Success', 401: 'Unauthorized'})
     @api.expect(data_model)
     @api.marshal_with(data_model)
     def post(self):
