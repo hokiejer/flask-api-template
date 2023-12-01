@@ -17,6 +17,8 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon'
 ]
+# Use Google-style docstrings, which aligns with Swagger
+napoleon_google_docstring = True
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
