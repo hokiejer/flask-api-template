@@ -1,47 +1,21 @@
 from flask import Flask, jsonify, request, Response
 from flask_restx import Api, Resource, fields
 from functools import wraps
+from flask_api.data import Data
+from flask_api import auth
+import os
 
 app = Flask(__name__)
-api = Api(app, doc='/swagger/') # Sets the URL for the Swagger documentation
+api = Api(app, authorizations={
+    'apikey': {
+        'type': 'apiKey',
+        'in': 'header',
+        'name': 'x-api-key'
+    }},
+    doc='/swagger/') # Sets the URL for the Swagger documentation
 
 # Simple in-memory database for demonstration
-data = {"message": "Hello, World!"}
-
-def check_auth(username, password):
-    """
-    Check if the provided username and password are valid.
-
-    Args:
-        username (str): The username to be checked.
-        password (str): The password to be checked.
-
-    Returns:
-        bool: True if the username and password are valid, False otherwise.
-    """
-    return username == 'admin' and password == 'secret'
-
-def requires_auth(f):
-    """
-    Decorator for routes that require authentication.
-
-    Args:
-        f (function): The function to be decorated.
-
-    Returns:
-        function: The decorated function.
-    """
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        auth = request.authorization
-        if not auth or not check_auth(auth.username, auth.password):
-            return Response(
-                'Could not verify your access level for that URL.\n'
-                'You have to login with proper credentials', 401,
-                {'WWW-Authenticate': 'Basic realm="Login Required"'}
-            )
-        return f(*args, **kwargs)
-    return decorated
+Data.global_dictionary = {"message": "Hello, World!"}
 
 # Define a model for your data structure
 data_model = api.model('DataModel', {
@@ -54,9 +28,9 @@ class DataResource(Resource):
     Resource for retrieving and updating data from the in-memory database.
     """
 
-    method_decorators = [requires_auth]
+    method_decorators = [auth.requires_auth]
 
-    @api.doc(responses={
+    @api.doc(security='apikey', responses={
         200: ('Success', data_model),
         401: 'Unauthorized'
     })
@@ -68,10 +42,9 @@ class DataResource(Resource):
         Returns:
             flask.Response: The JSON response containing the data.
         """
-        print(data)
-        return data
-
-    @api.doc(responses={200: 'Success', 401: 'Unauthorized'})
+        return Data.global_dictionary
+    
+    @api.doc(security='apikey', responses={200: 'Success', 401: 'Unauthorized'})
     @api.expect(data_model)
     @api.marshal_with(data_model)
     def post(self):
@@ -82,9 +55,8 @@ class DataResource(Resource):
             flask.Response: The JSON response containing the updated data.
         """
         new_data = request.json
-        data.update(new_data)
-        print(data)
-        return data, 200
+        Data.global_dictionary = new_data
+        return Data.global_dictionary, 200
 
 if __name__ == '__main__':
     # This block of code will only be executed if the script is run directly (not imported as a module)
