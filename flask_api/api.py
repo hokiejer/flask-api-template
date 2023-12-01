@@ -30,7 +30,7 @@ class DataResource(Resource):
 
     method_decorators = [auth.requires_auth]
 
-    @api.doc(security='apikey',params={'x-api-key': 'API Key'}, responses={
+    @api.doc(security='apikey', responses={
         200: ('Success', data_model),
         401: 'Unauthorized'
     })
@@ -44,7 +44,7 @@ class DataResource(Resource):
         """
         return Data.global_dictionary
     
-    @api.doc(security='apikey',params={'x-api-key': 'API Key'}, responses={200: 'Success', 401: 'Unauthorized'})
+    @api.doc(security='apikey', responses={200: 'Success', 401: 'Unauthorized'})
     @api.expect(data_model)
     @api.marshal_with(data_model)
     def post(self):
