@@ -50,6 +50,10 @@ data_model = api.model('DataModel', {
 
 @api.route('/data')
 class DataResource(Resource):
+    """
+    Resource for retrieving and updating data from the in-memory database.
+    """
+
     method_decorators = [requires_auth]
 
     @api.doc(responses={
@@ -83,4 +87,6 @@ class DataResource(Resource):
         return data, 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # This block of code will only be executed if the script is run directly (not imported as a module)
+    app.run(debug=True)  # Start the Flask application in debug mode
+
