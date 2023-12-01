@@ -1,9 +1,15 @@
 import unittest
 from flask_testing import TestCase
 from flask_api.api import app
+from flask_api.data import Data
 import base64
+import os
 
-class TestAPI(TestCase):
+def setUpModule():
+    os.environ['FLASK_API_AUTH_TYPE'] = 'BASIC'
+    Data.global_dictionary = {"message": "Hello, World!"}
+
+class TestAPIAuthBasic(TestCase):
     def create_app(self):
         app.config['TESTING'] = True
         return app
