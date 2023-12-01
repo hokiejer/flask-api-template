@@ -32,8 +32,7 @@ def requires_auth(f):
             if not api_key or not check_auth_api_key(api_key):
                 return Response(
                     'Could not verify your access level for that URL.\n'
-                    'You have to provide a valid API key', 401,
-                    {'WWW-Authenticate': 'Basic realm="Login Required"'}
+                    'You have to provide a valid API key', 401
                 )
             return f(*args, **kwargs)
         
@@ -60,28 +59,6 @@ def check_auth_basic(username, password):
     """
     return username == 'admin' and password == 'secret'
 
-def requires_auth_basic(f):
-    """
-    Decorator for routes that require authentication.
-
-    Args:
-        f (function): The function to be decorated.
-
-    Returns:
-        function: The decorated function.
-    """
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        auth = request.authorization
-        if not auth or not check_auth_basic(auth.username, auth.password):
-            return Response(
-                'Could not verify your access level for that URL.\n'
-                'You have to login with proper credentials', 401,
-                {'WWW-Authenticate': 'Basic realm="Login Required"'}
-            )
-        return f(*args, **kwargs)
-    return decorated
-
 ### API KEY Authentication
 
 def check_auth_api_key(api_key):
@@ -95,25 +72,4 @@ def check_auth_api_key(api_key):
         bool: True if the API key is valid, False otherwise.
     """
     return api_key == '0123456789ABCDEF'
-
-def requires_auth_api_key(f):
-    """
-    Decorator for routes that require authentication.
-
-    Args:
-        f (function): The function to be decorated.
-
-    Returns:
-        function: The decorated function.
-    """
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        api_key = request.headers.get('x-api-key')
-        if not api_key or not check_auth_api_key(api_key):
-            return Response(
-                'Could not verify your access level for that URL.\n'
-                'You have to provide a valid API key', 401
-            )
-        return f(*args, **kwargs)
-    return decorated
 
