@@ -24,7 +24,7 @@ class DataResource(Resource):
 
     method_decorators = [auth.requires_auth]
 
-    @api.doc(responses={
+    @api.doc(params={'x-api-key': 'API Key'}, responses={
         200: ('Success', data_model),
         401: 'Unauthorized'
     })
