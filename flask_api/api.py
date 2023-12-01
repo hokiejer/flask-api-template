@@ -52,7 +52,10 @@ data_model = api.model('DataModel', {
 class DataResource(Resource):
     method_decorators = [requires_auth]
 
-    @api.doc(responses={200: 'Success', 401: 'Unauthorized'})
+    @api.doc(responses={
+        200: ('Success', data_model),
+        401: 'Unauthorized'
+    })
     @api.marshal_with(data_model)
     def get(self):
         """

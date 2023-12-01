@@ -12,6 +12,7 @@ Here's a quick overview of some helpful commands for managing this repository:
 
 | Task | Command |
 |---|---|
+| Run API | `python3 flask_api/api.py` |
 | Run unit tests | `python3 -m unittest discover` |
 | Rebuild `requirements.txt` | `pip freeze > requirements.txt` |
 | Rebuild Sphinx documentation | `make html` |
