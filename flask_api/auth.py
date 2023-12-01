@@ -112,8 +112,7 @@ def requires_auth_api_key(f):
         if not api_key or not check_auth_api_key(api_key):
             return Response(
                 'Could not verify your access level for that URL.\n'
-                'You have to provide a valid API key', 401,
-                {'WWW-Authenticate': 'Basic realm="Login Required"'}
+                'You have to provide a valid API key', 401
             )
         return f(*args, **kwargs)
     return decorated
