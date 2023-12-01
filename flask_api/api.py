@@ -6,7 +6,13 @@ from flask_api import auth
 import os
 
 app = Flask(__name__)
-api = Api(app, doc='/swagger/') # Sets the URL for the Swagger documentation
+api = Api(app, authorizations={
+    'apikey': {
+        'type': 'apiKey',
+        'in': 'header',
+        'name': 'x-api-key'
+    }},
+    doc='/swagger/') # Sets the URL for the Swagger documentation
 
 # Simple in-memory database for demonstration
 Data.global_dictionary = {"message": "Hello, World!"}
@@ -24,7 +30,7 @@ class DataResource(Resource):
 
     method_decorators = [auth.requires_auth]
 
-    @api.doc(params={'x-api-key': 'API Key'}, responses={
+    @api.doc(security='apikey',params={'x-api-key': 'API Key'}, responses={
         200: ('Success', data_model),
         401: 'Unauthorized'
     })
@@ -38,7 +44,7 @@ class DataResource(Resource):
         """
         return Data.global_dictionary
     
-    @api.doc(params={'x-api-key': 'API Key'}, responses={200: 'Success', 401: 'Unauthorized'})
+    @api.doc(security='apikey',params={'x-api-key': 'API Key'}, responses={200: 'Success', 401: 'Unauthorized'})
     @api.expect(data_model)
     @api.marshal_with(data_model)
     def post(self):
