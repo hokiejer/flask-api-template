@@ -3,6 +3,7 @@
 This is my template for a flask API.  Here's what it offers:
 
 - [x] Flask API definition with GET/POST routes
+- [x] VSCode extensions
 - [x] Flask Codespace environment
 - [x] Flask unit tests
 - [x] Sphinx documentation
