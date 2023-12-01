@@ -6,7 +6,7 @@ This is my template for a flask API.  Here's what it offers:
 - [x] VSCode extensions
 - [x] Flask Codespace environment
 - [x] Flask unit tests
-- [x] Sphinx documentation
+- [x] Sphinx documentation with Google-style docstrings
 - [x] Swagger documentation
 
 Here's a quick overview of some helpful commands for managing this repository:
